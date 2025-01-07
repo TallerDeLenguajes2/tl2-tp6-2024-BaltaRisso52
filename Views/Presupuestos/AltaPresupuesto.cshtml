@@ -1,0 +1,17 @@
+@model Presupuesto
+
+<form asp-controller="Presupuestos" asp-action="CrearPresupuesto" method="post" class="container mt-4"
+    style="max-width: 50%;">
+    <h2 class="text-center mb-4">Crear Presupuesto</h2>
+
+    <section class="mb-3">
+        <label asp-for="NombreDestinatario" class="form-label">Nombre del Destinatario</label>
+        <input asp-for="NombreDestinatario" class="form-control" placeholder="Ingrese el nombre del destinatario"
+            required>
+    </section>
+
+    <section class="text-center">
+        <input type="submit" value="Crear" class="btn btn-success me-2">
+        <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+    </section>
+</form>

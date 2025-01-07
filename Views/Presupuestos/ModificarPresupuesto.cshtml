@@ -1,0 +1,58 @@
+@model AgregarProductoViewModel
+
+<h2>Agregar Producto</h2>
+<div class="container d-flex justify-content-center mt-5">
+    <form asp-controller="Presupuestos" asp-action="AgregarProducto" method="post" style="width: 100%; display: flex; align-items: center;">
+        <section class="d-flex align-items-center me-3">
+            <label for="Descripcion" class="me-2">Descripción</label>
+            <select id="Descripcion" class="form-select" name="idProducto" required style="width: auto;">
+                <option value="-1">Seleccione un producto</option>
+                @foreach (var producto in Model.Productos)
+                {
+                    <option value="@producto.IdProducto">@producto.Descripcion</option>
+                }
+            </select>
+        </section>
+        <section class="d-flex align-items-center me-3">
+            <label for="cantidad" class="me-2">Cantidad</label>
+            <input id="cantidad" name="cantidad" type="number" class="form-control" min="1" required style="width: auto;">
+        </section>
+        <input type="number" value="@Model.Presupuesto.IdPresupuesto1" name="idPresupuesto" hidden>
+        <section class="d-flex align-items-center">
+            <input type="submit" value="Agregar" class="btn btn-primary">
+        </section>
+    </form>
+</div>
+
+<hr style="border: 1px solid black;">
+<h2>Productos: </h2>
+<form asp-action="ModificarPresupuestoOK" method="post">
+    @foreach (var producto in Model.Presupuesto.Detalles)
+    {
+        <div class="row mb-3">
+            <!-- Descripción del producto -->
+            <div class="col-md-4">
+                <label asp-for="@producto.Producto.Descripcion" class="form-label">Descripción</label>
+                <input asp-for="@producto.Producto.Descripcion" class="form-control" disabled>
+            </div>
+
+            <!-- Cantidad del producto -->
+            <div class="col-md-3">
+                <label asp-for="@producto.Cantidad" class="form-label">Cantidad</label>
+                <input asp-for="@producto.Cantidad" class="form-control" name="cantidad" value="@producto.Cantidad" min="1" required>
+            </div>
+
+            <input type="hidden" name="idPresupuesto" value="@Model.Presupuesto.IdPresupuesto1">
+            <input type="hidden" name="idProducto" value="@producto.Producto.IdProducto">
+
+            <!-- Acciones -->
+            <div class="col-md-5 d-flex align-items-center">
+                <a asp-controller="Presupuestos" asp-action="EliminarProductoDePresupuesto"
+                    asp-route-id1="@producto.Producto.IdProducto" asp-route-id2="@Model.Presupuesto.IdPresupuesto1"
+                    class="btn btn-danger btn-sm me-2">Eliminar</a>
+                <button type="submit" name="actualizar" value="@producto.Producto.IdProducto"
+                    class="btn btn-success btn-sm">Actualizar</button>
+            </div>
+        </div>
+    }
+</form>

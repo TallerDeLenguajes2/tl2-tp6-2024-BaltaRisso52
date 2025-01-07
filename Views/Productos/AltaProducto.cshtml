@@ -1,0 +1,16 @@
+@model Producto
+
+<form asp-action="CrearProducto" method="post" class="container mt-4" style="max-width: 50%;">
+    <section class="mb-3">
+        <label asp-for="Descripcion" class="form-label">Descripción</label>
+        <input asp-for="Descripcion" type="text" class="form-control">
+    </section>
+    <section class="mb-3">
+        <label asp-for="Precio" class="form-label">Precio</label>
+        <input asp-for="Precio" type="number" class="form-control">
+    </section>
+    <section class="text-center">
+        <input type="submit" value="Cargar" class="btn btn-success">
+        <a asp-action="Index" class="btn btn-danger">Cancelar</a>
+    </section>
+</form>
